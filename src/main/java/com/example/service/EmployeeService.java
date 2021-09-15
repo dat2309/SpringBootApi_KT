@@ -8,5 +8,10 @@ import com.example.entity.Employee;
 @Service
 public interface EmployeeService {
 
+	public List<Employee> findAll();
 	
+	public void saveEmployee(Employee entity);
+
+	public void deleteEmployee(long id);
+
 }

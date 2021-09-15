@@ -22,6 +22,38 @@ import com.example.service.EmployeeService;
 @RestController
 @RequestMapping(value = "/api")
 public class EmployeeController {
-	
+	@Autowired
+	EmployeeService service;
+
+	@GetMapping(value = "/employees")
+	public List<Employee> getAll() {
+		return service.findAll();
+	}
+
+	@PostMapping(value = "/employee")
+	public String addEmployee(@RequestBody Employee employee) {
+		service.saveEmployee(employee);
+		return "Save Success";
+	}
+
+	@PutMapping(value = "/employee/{id}")
+	public String updateEmployee(@RequestBody Employee employee, @PathVariable Long id) {
+		employee.setId(id);
+		service.saveEmployee(employee);
+		return "Update Success";
+	}
+
+	@DeleteMapping(value = "/employee/{id}")
+	public String deleteEmployee(@PathVariable Long id) {
+		try {
+			service.deleteEmployee(id);
+			return "Delete Success";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "Delete Fail";
+	}
+
 
 }
